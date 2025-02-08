@@ -1,5 +1,5 @@
 const FRONTEND_URL=process.env.FRONTEND_URL;
 
-export {
+module.exports= {
     FRONTEND_URL
 }

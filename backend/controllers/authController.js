@@ -1,15 +1,15 @@
+const { FRONTEND_URL } = require("../config");
 const bcrypt =require("bcryptjs") 
 const User =require("../models/user") 
 const nodemailer =require("nodemailer")
 const generateToken=require("../utils/generateToken");
 const crypto=require("crypto");
-import { FRONTEND_URL } from "../config";
 
 const transporter=nodemailer.createTransport({
     service:"gmail",
     auth:{
         user:process.env.EMAIL_USER,
-        pass:process.env.EMAIL_PASSWORD
+        pass:process.env.EMAIL_PASSWORD,
     },
 })
 
@@ -116,15 +116,27 @@ const logoutUser=async(req,res)=>{
 const requestPasswordReset=async(req,res)=>{
     try{
         const {email}=req.body;
+        console.log(email);
         const user= await User.findOne({email});
 
         if(!user){
-            return res.staus(400).json({message:"User not found"});
+            return res.status(400).json({message:"User not found"});
         }
 
+        // Generate a reset token and hashed token using crypto
         const resetToken=crypto.randomBytes(32).toString("hex");
-        const resetLink=`${FRONTEND_URL}/reset-password/${resetToken}`
+        const hashedToken=crypto.createHash("sha256").update(resetToken).digest("hex");
+        
+        // Store hashed token and set expiration(10minutes)
+        user.resetPasswordToken=hashedToken;
+        user.resetPasswordExpires=Date.now() + 10 *60*1000; // 10 minutes
 
+        await user.save();
+
+        const resetLink=`${FRONTEND_URL}/reset-password/${resetToken}`
+        console.log(resetLink);
+
+        // send email with reset link
         await transporter.sendMail({
             from:process.env.EMAIL_USER,
             to:email,
@@ -135,7 +147,7 @@ const requestPasswordReset=async(req,res)=>{
     }
 
     catch(err){
-        res.status(500).json({message:"Server error",error})
+        res.status(500).json({message:"Server error",err})
         
     }
 

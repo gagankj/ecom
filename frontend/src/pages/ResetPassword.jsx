@@ -1,6 +1,6 @@
 import { useState, React } from "react";
 import axios from "axios";
-import { SERVER_API } from "../config";
+import {forgotPassword} from "../utils/api";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +8,13 @@ const ResetPassword = () => {
 
   const  resetpassword=async(e)=>{
     e.preventDefault();
-    const response = await axios.post(`${SERVER_API}/api/auth/forgot-password`)
+    try{
+
+      const {data} = await forgotPassword(email);
+      setMessage(data.message);
+    } catch(error){
+      setMessage(error.response?.data?.messsage || "Something went wrong");
+    }
       
     
   }
@@ -33,6 +39,7 @@ const ResetPassword = () => {
           onChange={(e)=>{setEmail(e.target.value)}}
           name="email"
           required
+          value={email}
           className="outline-none px-4 py-1 rounded-md bg-zinc-100 w-96"
           placeholder="Enter Email"
           type="email"
