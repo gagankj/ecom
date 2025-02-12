@@ -89,7 +89,15 @@ const loginUser = async (req, res) => {
             maxAge: 3600000,
         });
 
+
+
         res.status(201).json({
+            user:{
+                id:user._id,
+                name:user.name,
+                email:user.email,
+                role:user.role,
+            },
             message: "User logged in successfully",
         });
 
@@ -116,7 +124,7 @@ const logoutUser=async(req,res)=>{
 const requestPasswordReset=async(req,res)=>{
     try{
         const {email}=req.body;
-        console.log(email);
+    
         const user= await User.findOne({email});
 
         if(!user){
@@ -134,7 +142,7 @@ const requestPasswordReset=async(req,res)=>{
         await user.save();
 
         const resetLink=`${FRONTEND_URL}/reset-password/${resetToken}`
-        console.log(resetLink);
+        
 
         // send email with reset link
         await transporter.sendMail({
@@ -155,20 +163,41 @@ const requestPasswordReset=async(req,res)=>{
 
 const resetPassword=async(req,res)=>{
     try{
-        const {resetToken}=req.params;
+        const {token}=req.params;
         const {newPassword}=req.body;
+        
 
-        const decoded=jwt.verify(resetToken)
+        //hash the token received in the request
+        const hashedToken=crypto.createHash("sha256").update(token).digest("hex")
 
+
+        //find user with the hashed token and check if it's still valid
+        const user=await User.findOne({
+            resetPasswordToken:hashedToken,
+            resetPasswordExpires:{$gt:Date.now()},
+        });
+
+        if(!user){
+            console.log("user not found or token expired.")
+            return res.status(400).json({message:"Invalid or expired token"});
+        }
+
+        user.password=newPassword;
+        user.resetPasswordToken=undefined;
+        user.resetPasswordExpires=undefined;
+
+        await user.save();
+
+        res.json({
+            message:"Password updated successfully"
+        });
     }
 
-    catch(err){
-        console.log(err);
+    catch(error){
+        console.log("error")
+        res.status(500).json({message:"Server error",error})
     }
 }
-
-
-
 
 
 module.exports={
@@ -179,6 +208,7 @@ module.exports={
     resetPassword
     
 }
+
 
 
 

@@ -9,6 +9,7 @@ import {login} from "../store/Slices/authSlice"
 const Register = () => {
 
   const dispatch=useDispatch();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",

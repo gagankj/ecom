@@ -1,4 +1,4 @@
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -6,9 +6,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux"
 import {login} from "../store/Slices/authSlice"
 import { SERVER_API } from "../config";
-const Register = () => {
+
+
+const Login = () => {
 
   const dispatch=useDispatch();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,10 +35,13 @@ const Register = () => {
         { withCredentials: true }
       );
 
+      const user=response.data.user
       if(response.status===201){
-        dispatch(login());
+        dispatch(login({user}));
+      
       }
 
+      
       toast.success("Login Successful!", {
         position: "top-right",
         autoClose: 3000, // Close after 3 seconds
@@ -46,16 +52,22 @@ const Register = () => {
       });
 
       console.log("Login Success:", response.data);
+      
+      setTimeout(()=>{
+          if(user.role==="admin"){
+            navigate("/admin-dashboard")
+          } else {
+            navigate("/home");
+          } 
+        },2000)
 
 
+        } 
 
-      setTimeout(() => {
-        navigate("/home");
-      }, 3000);
-    } catch (error) {
+    catch (error) {
       console.error(error);
 
-      toast.error(error.response?.data?.message || "Login egistration failed!", {
+      toast.error(error.response?.data?.message || "Login failed!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -66,6 +78,9 @@ const Register = () => {
     }
   };
 
+  
+  
+  
   return (
     <div className="flex flex-col justify-center items-center py-20">
       <h1 className="text-4xl font-bold tracking-tight ">Login to CAV</h1>
@@ -103,7 +118,7 @@ const Register = () => {
         </button>
       </form>
       
-      <NavLink className={"text-red-500"} to="/resetpassword">Forgot Password?</NavLink>
+      <NavLink className={"text-red-500"} to="/request-reset-link">Forgot Password?</NavLink>
 
       <ToastContainer /> {/* Keep ToastContainer for global toasts */}
       <div className="flex gap-4 mt-4">
@@ -117,4 +132,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
