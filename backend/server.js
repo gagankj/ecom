@@ -17,8 +17,8 @@ const corsOptions = {
 app.use(cors(corsOptions));// to enable cors to make it accessible to frontend
 app.use(express.json()); // to parse json bodies
 app.use(cookieParser())
-//Routes
-const  authRoute =require("./routes/authRoute")
+
+
 
 //connecting to mongodb database
 mongoose.connect(process.env.MONGO_URI)
@@ -26,8 +26,15 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((error)=>{console.error(error);})
 
 
+//Routes
+const  authRoute =require("./routes/authRoute")
+const contactRoute=require("./routes/contactRoute")
+const userRoute=require("./routes/userRoute")
 // Auth Route
 app.use("/api/auth",authRoute);
+app.use("/api",contactRoute);
+app.use("/api",userRoute)
+
 
 
 

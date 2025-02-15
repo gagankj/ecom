@@ -67,7 +67,7 @@ const userSchema=new mongoose.Schema({
     },
     avatar:{
         type:String,
-        default:"https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png"
+        default:"https://lh4.googleusercontent.com/proxy/rxQrcISNW6c152TqWIA9iND_qakd02mJVLg8nSRrwxla5LSGonSX6tOxyhSbS9NWTuXZ4xXKJvzXPPfsfLxHEflyoqfrUDN3HMnLqJUpuE6y"
     },
     
 },

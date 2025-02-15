@@ -3,7 +3,6 @@ import Home from './pages/Home'
 import { Route,Routes } from 'react-router-dom'
 import Products from './pages/Products'
 import Categories from './pages/Categories'
-import About from './pages/About'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -21,9 +20,11 @@ import AdminProducts from './pages/admin/AdminProducts'
 import AdminCategories from './pages/admin/AdminCategories'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminUsers from './pages/admin/AdminUsers'
+import AdminMessages from './pages/admin/AdminMessages'
 
 
 const App = () => {
+
   return (
     <>
     
@@ -33,7 +34,6 @@ const App = () => {
       <Route path='/home' element={<Home/>}/>
       <Route path='/products' element={<Products/>} />
       <Route path='/categories' element={<Categories/>} />
-      <Route path='/about' element={<About/>} />
       <Route path='/contact' element={<Contact/>} />
       <Route path='/wishlist' element={<Wishlist/>} />
       <Route path='/cart' element={<Cart/>} />
@@ -44,6 +44,7 @@ const App = () => {
       <Route path='/admin-categories' element={<AdminCategories/>}/>
       <Route path='/admin-orders' element={<AdminOrders/>}/>
       <Route path='/admin-users' element={<AdminUsers/>}/>
+      <Route path='/admin-messages' element={<AdminMessages/>}/>
 
       <Route path='*' element={<NotFound/>} />
       </Route>

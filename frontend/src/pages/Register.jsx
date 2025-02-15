@@ -44,9 +44,9 @@ const Register = () => {
         pauseOnHover: true,
         draggable: true,
       });
-      
+      const user=response.data.user
       if(response.status===201){
-        dispatch(login());
+        dispatch(login({user}));
       }
       console.log("Registration Success:", response.data);
       

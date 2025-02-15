@@ -46,8 +46,15 @@ const registerUser = async(req,res)=>{
         })
 
         res.status(201).json({
-            message:"user registered successfully",
-        })
+            user:{
+                id:newUser._id,
+                name:newUser.name,
+                email:newUser.email,
+                role:newUser.role,
+                avatar:newUser.avatar,
+            },
+            message: "User logged in successfully",
+        });
 
 
         
@@ -97,6 +104,7 @@ const loginUser = async (req, res) => {
                 name:user.name,
                 email:user.email,
                 role:user.role,
+                avatar:user.avatar,
             },
             message: "User logged in successfully",
         });

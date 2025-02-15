@@ -6,7 +6,10 @@ const AdminDashboard = () => {
 
   return (
     <>
-    <div>AdminDashboard</div>
+    <div className='ml-44 bg-zinc-50 '>
+      AdminDashboard
+
+    </div>
     
     </>
   )

@@ -6,22 +6,20 @@ import { logout } from '../../store/Slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { IoSettingsOutline } from "react-icons/io5";
-
-const UserNavbar = () => {
-    const [settings, setSettings] = useState(false);
+import { CgProfile } from "react-icons/cg";
+const AdminNavbar = () => {
+    
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     console.log(isAuthenticated);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const dropdownRef = useRef(null); // Reference for detecting outside clicks
+     // Reference for detecting outside clicks
 
     async function handleLogout() {
         try {
             await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
             dispatch(logout());
             navigate("/login");
-            setSettings(false);
             toast.success("Logout successfully!", {
                 position: "top-right",
                 autoClose: 3000,
@@ -36,59 +34,33 @@ const UserNavbar = () => {
     }
 
     // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setSettings(false);
-            }
-        };
+    
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+        
 
     return (
         <>
             
 
-            <div className='w-screen flex justify-around items-center text-white text-xl bg-black h-20 border-b-1 border-zinc-300'>
+            <div className='w-52 absolute flex flex-col  items-center text-zinc-400 text-xl bg-zinc-900 h-screen border-b-1 border-zinc-300'>
                 <NavLink to={"/home"} className='w-32 '>
                     <img src={logo} alt="Logo" />
                 </NavLink>
-                <div className='flex w-1/3 justify-between'>
-                    <NavLink to="/admin-dashboard">Dashboard</NavLink>
-                    <NavLink to="/admin-products">Products</NavLink>
-                    <NavLink to="/admin-categories">Categories</NavLink>
-                    <NavLink to="/admin-orders">Orders</NavLink>
-                    <NavLink to="/admin-users">Users</NavLink>
+                    <h1 className='font-bold text-5xl text-center mt-4'>ADMIN PANEL</h1>
+                <div className='flex flex-col  mt-4 gap-2 justify-between'>
+                    <NavLink className={"hover:underline"} to="/admin-dashboard">Dashboard</NavLink>
+                    <NavLink className={"hover:underline"} to="/admin-products">Manage Products</NavLink>
+                    <NavLink className={"hover:underline"} to="/admin-categories">Manage Categories</NavLink>
+                    <NavLink className={"hover:underline"} to="/admin-orders">Manage Orders</NavLink>
+                    <NavLink className={"hover:underline"} to="/admin-users">Manage Users</NavLink>
+                    <NavLink to="/admin-messages" className=" hover:underline cursor-pointer">Messages</NavLink>
+                    <NavLink to="/account" className=" hover:underline cursor-pointer"> <CgProfile className="inline" /> Account</NavLink>
+                    <button onClick={handleLogout} className=" py-1 w-20 mt-6 bg-red-500 rounded-lg text-white cursor-pointer">Logout</button>
                 </div>
-                <div className='flex items-center gap-4'>
-                    {isAuthenticated ? (
-                        <div className='flex gap-4 items-center'>
-                            <div className="relative mt-1" ref={dropdownRef}>
-                                <button className='cursor-pointer' onClick={() => setSettings(!settings)}><IoSettingsOutline /></button>
-                                {settings && (
-                                    <div className="absolute w-40 right-0 border border-zinc-300 top-10 bg-white text-sm text-zinc-800 rounded-lg shadow-lg">
-                                        <ul className="py-2 flex flex-col  px-2">
-                                            <NavLink to="/account" className="px-2 py-2 hover:underline cursor-pointer">Account</NavLink>
-                                            <button onClick={handleLogout} className=" py-2 mt-6 bg-red-500 rounded-lg text-white  hover:underline cursor-pointer">Logout</button>
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    ) : (
-                        <div>
-                            <NavLink className="bg-white mr-4 text-black px-4 py-1 rounded-lg" to="/login">Login</NavLink>
-                            <NavLink className="bg-blue-500 px-4 py-1 rounded-lg" to="/register">Register</NavLink>
-                        </div>
-                    )}
-                </div>
+                
             </div>
         </>
     );
 };
 
-export default UserNavbar;
+export default AdminNavbar;
