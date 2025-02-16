@@ -1,0 +1,54 @@
+const mongoose=require("mongoose")
+
+const CarouselSchema=new mongoose.Schema({
+    heading:{
+        type:String,
+        required:true
+    },
+    subheading:{
+        type:String,
+        required:true
+    },
+    title:{
+        type:String,
+        required:true
+    },
+    buttonText:{
+        type:String,
+        required:true
+    },
+    buttonLink:{
+        type:String,
+        required:true
+    },
+    imageUrl:{
+        type:String,
+        required:true
+    },
+    bgColor:{
+        type:String,
+        required:true
+    },
+    headingColor:{
+        type:String,
+        required:true
+    },
+    subheadingColor:{
+        type:String,
+        required:true,
+    },
+    titleColor:{
+        type:String,
+        required:true
+    },
+    buttonBgColor:{
+        type:String,
+        required:true
+    },
+    buttonTextColor:{
+        type:String,
+        required:true
+    }
+},{timestamps:true});
+
+module.exports=mongoose.model("Carousel",CarouselSchema);

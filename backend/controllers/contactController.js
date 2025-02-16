@@ -52,7 +52,18 @@ const getMessages=async(req,res)=>{
 
 }
 
+const deleteMessages=async(req,res)=>{
+    try{
+        await Contact.findOneAndDelete(req.params.id);
+        res.json({message:"message deleted!"})
+    } catch(err){
+        res.status(500).json({message:err.message})
+    }
+
+}
+
 module.exports = {
     contactController,
-    getMessages
+    getMessages,
+    deleteMessages
 }

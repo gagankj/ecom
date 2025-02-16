@@ -53,7 +53,7 @@ const Register = () => {
 
       
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 3000);
     } catch (error) {
       console.error(error);

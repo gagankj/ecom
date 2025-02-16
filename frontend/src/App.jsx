@@ -21,6 +21,7 @@ import AdminCategories from './pages/admin/AdminCategories'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminUsers from './pages/admin/AdminUsers'
 import AdminMessages from './pages/admin/AdminMessages'
+import AdminCarousel from './pages/admin/AdminCarousel'
 
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
     <ToastContainer />
     <Routes>
       <Route path='/' element={<Layout/>}>
-      <Route path='/home' element={<Home/>}/>
+      <Route index element={<Home/>}/>
       <Route path='/products' element={<Products/>} />
       <Route path='/categories' element={<Categories/>} />
       <Route path='/contact' element={<Contact/>} />
@@ -45,6 +46,7 @@ const App = () => {
       <Route path='/admin-orders' element={<AdminOrders/>}/>
       <Route path='/admin-users' element={<AdminUsers/>}/>
       <Route path='/admin-messages' element={<AdminMessages/>}/>
+      <Route path='/admin-carousel' element={<AdminCarousel/>}/>
 
       <Route path='*' element={<NotFound/>} />
       </Route>

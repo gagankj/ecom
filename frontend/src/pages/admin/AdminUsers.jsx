@@ -15,6 +15,18 @@ const AdminUsers = () => {
     }
   }
   fetchUsers()
+
+
+  const deleteUser=async(id)=>{
+    try {
+      
+      await axios.delete(`${SERVER_API}/api/user/delete/${id}`);
+      alert("user deleted")
+          } catch (error) {
+      alert("some error occured: ",error)
+      
+    }
+  }
   return (
     <div className='ml-52 px-10 py-4'>
       {users.length>0?(
@@ -25,7 +37,7 @@ const AdminUsers = () => {
             <p>{user.email}</p>
             
             <p className='text-zinc-500'>{new Date(user.createdAt).toLocaleString()}</p>
-            <button className='bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg '>Delete</button>
+            <button onClick={()=>deleteUser(user._id)} className='bg-red-500 mt-2 hover:bg-red-600 text-white px-4 py-1 rounded-lg '>Delete</button>
 
           </div>
         ))

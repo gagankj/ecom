@@ -16,7 +16,13 @@ const AdminMessages = () => {
     };
 
     fetchMessages();
-  }, []); // ✅ Add dependency array to prevent infinite calls
+  }, []);
+
+  const deleteMessage=async (id)=>{
+    await axios.delete(`${SERVER_API}/api/contacts/${id}`)
+    alert("message deleted");
+    window.location.reload();
+  }
 
   return (
     <div className="ml-48 flex flex-col gap-4 px-10 py-10">
@@ -28,6 +34,7 @@ const AdminMessages = () => {
             <p>Email: {msg.email}</p>
             <p>Message: {msg.message}</p>
             <p className="text-zinc-400 text-sm">Date: {new Date(msg.createdAt).toLocaleString()}</p>
+            <button onClick={()=>deleteMessage(msg._id)} className='bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-1 mt-2'>Delete</button>
           </div>
         ))
       ) : (

@@ -33,7 +33,6 @@ const AdminNavbar = () => {
         }
     }
 
-    // Close dropdown when clicking outside
     
 
         
@@ -42,8 +41,8 @@ const AdminNavbar = () => {
         <>
             
 
-            <div className='w-52 absolute flex flex-col  items-center text-zinc-400 text-xl bg-zinc-900 h-screen border-b-1 border-zinc-300'>
-                <NavLink to={"/home"} className='w-32 '>
+            <div className='w-52 fixed flex flex-col  items-center text-zinc-400 text-xl bg-zinc-900 h-screen '>
+                <NavLink to={"/admin-dashboard"} className='w-32 '>
                     <img src={logo} alt="Logo" />
                 </NavLink>
                     <h1 className='font-bold text-5xl text-center mt-4'>ADMIN PANEL</h1>
@@ -53,6 +52,7 @@ const AdminNavbar = () => {
                     <NavLink className={"hover:underline"} to="/admin-categories">Manage Categories</NavLink>
                     <NavLink className={"hover:underline"} to="/admin-orders">Manage Orders</NavLink>
                     <NavLink className={"hover:underline"} to="/admin-users">Manage Users</NavLink>
+                    <NavLink className={"hover:underline"} to="/admin-carousel">Manage Carousels</NavLink>
                     <NavLink to="/admin-messages" className=" hover:underline cursor-pointer">Messages</NavLink>
                     <NavLink to="/account" className=" hover:underline cursor-pointer"> <CgProfile className="inline" /> Account</NavLink>
                     <button onClick={handleLogout} className=" py-1 w-20 mt-6 bg-red-500 rounded-lg text-white cursor-pointer">Logout</button>

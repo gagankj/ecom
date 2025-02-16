@@ -12,4 +12,16 @@ const getUsers=async(req,res)=>{
 
 }
 
-module.exports=getUsers
+const deleteUser=async(req,res)=>{
+    try {
+        
+        await User.findOneAndDelete(req.params.id);
+        res.json({message:"user deleted"})
+    } catch (error) {
+        res.json({message:error.message})
+    }
+}
+
+module.exports={
+    getUsers,
+    deleteUser}

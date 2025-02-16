@@ -57,7 +57,7 @@ const Login = () => {
           if(user.role==="admin"){
             navigate("/admin-dashboard")
           } else {
-            navigate("/home");
+            navigate("/");
           } 
         },2000)
 
