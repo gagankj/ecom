@@ -27,16 +27,21 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 //Routes
-const  authRoute =require("./routes/authRoute")
-const contactRoute=require("./routes/contactRoute")
-const userRoute=require("./routes/userRoute")
-const carouselRoute=require("./routes/carouselRoute")
+const  authRoute =require("./routes/authRoute");
+const contactRoute=require("./routes/contactRoute");
+const userRoute=require("./routes/userRoute");
+const carouselRoute=require("./routes/carouselRoute");
+const productRoutes=require("./routes/productRoutes");
+const categoryRoute =require("./routes/categoryRoute");
+
+
 // Auth Route
 app.use("/api/auth",authRoute);
 app.use("/api",contactRoute);
 app.use("/api",userRoute)
 app.use("/api/carousel",carouselRoute);
-
+app.use("/api/product",productRoutes);
+app.use("/api/category",categoryRoute)
 
 
 

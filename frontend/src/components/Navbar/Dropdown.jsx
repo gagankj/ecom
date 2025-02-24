@@ -25,7 +25,7 @@ const Dropdown=({title,categories})=>{
             </button>
 
             {open && (
-                <div className='absolute left-0 mt-2 bg-white text-black w-40 border border-zinc-200 rounded-lg'>
+                <div className='absolute z-10 left-0 mt-2 bg-white text-black w-40 border border-zinc-200 rounded-lg'>
                     <ul className='py-2'>
                         {categories.map((category,index)=>(
                             <li key={index}>

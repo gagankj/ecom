@@ -14,7 +14,7 @@ import Dropdown from './Dropdown';
 const UserNavbar = () => {
     
     const menCategories=[
-        {name:"Sneakers",link:"/men/sneakers"},
+        {name:"Sneakers",link:"/products"},
         {name:"Sports",link:"/men/sports"},
         {name:"Casual",link:"/men/casual"}
     ];

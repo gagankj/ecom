@@ -55,10 +55,10 @@ const HeroCarousel = () => {
                         <h1 className="text-3xl tracking-tight " style={{ color: carousel.headingColor }}>
                             {carousel.heading}
                         </h1>
-                        <p className="text-8xl mt-2 font-bold tracking-tight" style={{ color: carousel.subheadingColor }}>
+                        <p className="lg:text-8xl md:text-5xl mt-2 font-bold tracking-tight" style={{ color: carousel.subheadingColor }}>
                             {carousel.subheading}
                         </p>
-                        <h2 className="text-xl mt-6 tracking-tight " style={{ color: carousel.titleColor }}>
+                        <h2 className="text-xl mt-2 tracking-tight " style={{ color: carousel.titleColor }}>
                             {carousel.title}
                         </h2>
                         <a

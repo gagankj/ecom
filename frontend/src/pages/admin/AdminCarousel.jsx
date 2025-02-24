@@ -102,8 +102,13 @@ const Admin = () => {
 
             {/* List of Carousels */}
             <h2 className="text-3xl py-4 font-bold mt-10">Existing Carousels</h2>
+            <div className="grid grid-cols-2 gap-6">
+
             {carousels.map((carousel) => (
-                <div key={carousel._id} className="p-4 border w-1/2 mb-6 rounded-md border-zinc-300 flex flex-col justify-between">
+                <div key={carousel._id}
+                style={{backgroundColor:carousel.bgColor}}
+                className="p-4 border  mb-6 rounded-md border-zinc-300 flex flex-col justify-between">
+                    <img src={carousel.imageUrl} className="w-40" alt="" />
                     <span>{carousel.heading}</span>
                     <span>{carousel.subheading}</span>
                     <span>{carousel.title}</span>
@@ -111,6 +116,7 @@ const Admin = () => {
                     <button onClick={() => handleDelete(carousel._id)} className="bg-red-500 mt-2 text-white w-24 px-4 py-1 rounded-md ">Delete</button>
                 </div>
             ))}
+            </div>
         </div>
     );
 };

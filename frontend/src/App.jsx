@@ -22,6 +22,8 @@ import AdminOrders from './pages/admin/AdminOrders'
 import AdminUsers from './pages/admin/AdminUsers'
 import AdminMessages from './pages/admin/AdminMessages'
 import AdminCarousel from './pages/admin/AdminCarousel'
+import AdminVariants from './pages/admin/AdminVariants'
+import ProductDetails from './pages/ProductDetails'
 
 
 const App = () => {
@@ -34,6 +36,7 @@ const App = () => {
       <Route path='/' element={<Layout/>}>
       <Route index element={<Home/>}/>
       <Route path='/products' element={<Products/>} />
+      <Route path='/product/:id' element={<ProductDetails/>} />
       <Route path='/categories' element={<Categories/>} />
       <Route path='/contact' element={<Contact/>} />
       <Route path='/wishlist' element={<Wishlist/>} />
@@ -42,6 +45,7 @@ const App = () => {
       {/* admin routes */}
       <Route path='/admin-dashboard' element={<AdminDashboard/>}/>
       <Route path='/admin-products' element={<AdminProducts/>}/>
+      <Route path='/admin-products-variants' element={<AdminVariants/>}/>
       <Route path='/admin-categories' element={<AdminCategories/>}/>
       <Route path='/admin-orders' element={<AdminOrders/>}/>
       <Route path='/admin-users' element={<AdminUsers/>}/>

@@ -7,7 +7,7 @@ const NotFound = () => {
     if(role=="admin"){
         link="/admin-dashboard"
     } else {
-        link="/home"
+        link="/"
 
     }
   return (

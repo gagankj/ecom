@@ -29,9 +29,12 @@ const AdminUsers = () => {
   }
   return (
     <div className='ml-52 px-10 py-4'>
+      <h1 className='text-5xl font-bold tracking-tight'>All Users</h1>
+      <div className='grid grid-cols-3 gap-4'>
+
       {users.length>0?(
         users.map((user)=>(
-          <div key={user._id} className='bg-zinc-100 my-4 w-1/2  rounded-lg px-4 py-2'>
+          <div key={user._id} className='bg-zinc-100 my-4  rounded-lg px-4 py-2'>
             
             <p className='font-bold text-zinc-800 text-lg'>{user.name}({user.role})</p>
             <p>{user.email}</p>
@@ -44,6 +47,7 @@ const AdminUsers = () => {
       ):(
         <p>no users</p>
       )}
+      </div>
     </div>
   )
 }
