@@ -22,21 +22,13 @@ const HeroCarousel = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % carousels.length);
-        }, 5000);
+        }, 3000);
 
         return () => clearInterval(interval);
     }, [carousels]);
 
     // Handle next and previous slide
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? carousels.length - 1 : prevIndex - 1
-        );
-    };
-
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % carousels.length);
-    };
+    
 
     if (carousels.length === 0) return null;
 
@@ -81,18 +73,7 @@ const HeroCarousel = () => {
             ))}
 
             {/* Navigation Buttons */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-5 top-1/2 transform -translate-y-1/2 bg-black text-white px-3 py-2 rounded-full"
-            >
-                ❮
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute right-5 top-1/2 transform -translate-y-1/2 bg-black text-white px-3 py-2 rounded-full"
-            >
-                ❯
-            </button>
+            
 
             {/* Dot Indicators */}
             <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">

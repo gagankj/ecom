@@ -3,7 +3,7 @@ import axios from "axios";
 import { SERVER_API } from "../../config";
 
 const AdminVariants = () => {
-    const sizes = ["5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
+    const sizes = ["5", "6", "7", "8", "9", "10", "11", "12", "13", "14","XS","S","M","L","XL","XXL","XXXL"];
     const [products, setProducts] = useState([]);
     const [variantForm, setVariantForm] = useState({
         productId: "",

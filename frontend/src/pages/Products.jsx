@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import ProductCard from '../components/Products/ProductCard';
 import { SERVER_API } from '../config';
 import axios from "axios"
+import Sidebar from '../components/Products/Sidebar';
 
 const Products = () => {
 
@@ -21,7 +22,7 @@ const Products = () => {
   return (
     <div>
       <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 '>
-
+      <Sidebar/>
       {products.map((prod)=>(
         <ProductCard  key={prod._id} prod={prod} />
         
