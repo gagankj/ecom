@@ -24,13 +24,14 @@ import AdminMessages from './pages/admin/AdminMessages'
 import AdminCarousel from './pages/admin/AdminCarousel'
 import AdminVariants from './pages/admin/AdminVariants'
 import ProductDetails from './pages/ProductDetails'
+import store from './store/store'
 
+console.log(store.getState())
 
 const App = () => {
-
+  
   return (
     <>
-    
     <ToastContainer />
     <Routes>
       <Route path='/' element={<Layout/>}>

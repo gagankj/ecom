@@ -30,7 +30,7 @@ const UserNavbar = () => {
     ];
 
 
-    
+    const cartItems=useSelector((state)=>state.cart.items.length)
     const [settings, setSettings] = useState(false);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     console.log(isAuthenticated);
@@ -95,10 +95,14 @@ const UserNavbar = () => {
                         </button>
                         <input className='outline-none pl-4 text-lg' placeholder='Search ' type="text" />
                     </div>
+                    <div className='relative'>
+
+                    <NavLink to="/cart"><BsCart3 />   </NavLink>
+                    <span className='text-xs bg-red-500 rounded-full px-1 w-4 h-4 absolute -top-2 -right-2'>{cartItems}</span>
+                    </div>
                     {isAuthenticated ? (
                         <div className='flex gap-4 items-center'>
                             <NavLink to="/wishlist"><FaRegHeart /></NavLink>
-                            <NavLink to="/cart"><BsCart3 /></NavLink>
                             <div className="relative mt-1" ref={dropdownRef}>
                                 <button className='cursor-pointer' onClick={() => setSettings(!settings)}><IoSettingsOutline /></button>
                                 {settings && (

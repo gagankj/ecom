@@ -11,7 +11,7 @@ const Sidebar = ({ onFilterChange }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${SERVER_API}/api/categories`);
+        const response = await axios.get(`${SERVER_API}/api/category`);
         setCategories(response.data); // No need for .json()
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -34,7 +34,7 @@ const Sidebar = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="w-64 p-4 bg-zinc-100 text-zinc-700 h-screen">
+    <div className="w-64  p-4 bg-zinc-100 text-zinc-700 h-screen">
       <h2 className="text-lg font-bold mb-4">Filters</h2>
 
       {/* Category Filter */}
@@ -61,19 +61,15 @@ const Sidebar = ({ onFilterChange }) => {
           type="range"
           min="0"
           max="50000"
+          step="1000"
           value={priceRange}
           onChange={handlePriceChange}
-          className="w-full cursor-pointer"
+          className="w-full  accent-blue-500 cursor-pointer"
         />
       </div>
 
       {/* Apply Button */}
-      <button
-        onClick={() => onFilterChange({ category: selectedCategory, priceRange })}
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
-      >
-        Apply Filters
-      </button>
+      
     </div>
   );
 };

@@ -7,6 +7,7 @@ const ProductCard = ({ prod }) => {
   // Extract price values
   const originalPrice = prod.variants[0]?.variants[0]?.price || 0;
   const discountPrice = prod.variants[0]?.variants[0]?.discountPrice || 0;
+  
 
   // Calculate discount percentage
   const discountPercent =

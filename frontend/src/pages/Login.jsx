@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux"
 import {login} from "../store/Slices/authSlice"
 import { SERVER_API } from "../config";
-
+import { setCart } from "../store/Slices/cartSlice";
 
 const Login = () => {
 

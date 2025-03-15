@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import {useDispatch} from "react-redux";
+import { addToCart } from "../store/Slices/cartSlice";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs } from "swiper/modules";
@@ -8,13 +10,18 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 const ProductDetails = () => {
+  const dispatch=useDispatch();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
-  
+  const [description,setDescription]=useState(true);
+  const [reviews,setReviews]=useState(false);
+  const [information,setInformation]=useState(false);
+
+  console.log(selectedVariant)
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -45,9 +52,25 @@ const ProductDetails = () => {
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
   }
 
+  const handleDescription=()=>{
+    setDescription(true);
+    setInformation(false);
+    setReviews(false);
+  }
+  const handleInformation=()=>{
+    setDescription(false);
+    setInformation(true);
+    setReviews(false);
+  }
+  const handleReviews=()=>{
+    setDescription(false);
+    setInformation(false);
+    setReviews(true);
+  }
+
   return (
     <div className="py-10 px-20">
-      <div className="flex">
+      <div className="flex mb-20">
         {/* Left - Image Slider */}
         <div className="w-3xl flex flex-col">
           {/* Main Image Swiper */}
@@ -97,7 +120,7 @@ const ProductDetails = () => {
 
           {/* Stock */}
           <h3 className={`my-1 ${selectedVariant.stock > 0 ? "text-green-500" : "text-red-500"}`}>
-            {selectedVariant.stock > 0 ? `In Stock (${selectedVariant.stock})` : "Out of Stock"}
+            {selectedVariant.stock > 0 ? `In Stock` : "Out of Stock"}
           </h3>
 
           {/* Description */}
@@ -110,8 +133,8 @@ const ProductDetails = () => {
               <button
                 key={index}
                 onClick={() => setSelectedColor(color)}
-                className={`px-4 py-2 border rounded-md ${
-                  color === selectedColor ? "bg-gray-800 text-white" : "bg-white text-black"
+                className={`px-4 py-2 border border-zinc-400 rounded-md ${
+                  color === selectedColor ? "bg-zinc-800 text-white" : "bg-white text-black"
                 }`}
               >
                 {color}
@@ -126,8 +149,8 @@ const ProductDetails = () => {
               <button
                 key={index}
                 onClick={() => setSelectedSize(size)}
-                className={`px-4 py-2 border rounded-md ${
-                  size === selectedSize ? "bg-gray-800 text-white" : "bg-white text-black"
+                className={`px-4 py-2 border border-zinc-400 rounded-md ${
+                  size === selectedSize ? "bg-zinc-800 text-white" : "bg-white text-zinc-600"
                 }`}
               >
                 {size}
@@ -137,18 +160,58 @@ const ProductDetails = () => {
 
           {/* Buttons */}
           <div className="flex gap-4 mt-6">
-            <button
+            {selectedVariant.stock > 0 ? (
+
+              <button
               disabled={selectedVariant.stock <= 0}
-              className={`w-1/3 h-12 rounded-md text-white ${
-                selectedVariant.stock > 0 ? "bg-zinc-800 hover:bg-zinc-900" : "bg-gray-400 cursor-not-allowed"
-              }`}
-            >
-              {selectedVariant.stock > 0 ? "Add to Cart" : "Out of Stock"}
+              onClick={()=>dispatch(addToCart(product))}
+              className={`w-1/3 h-12 rounded-md text-white bg-zinc-800 hover:bg-zinc-900"
+                }`}
+                >
+                  Add to Cart
             </button>
+            ):(
+              ""
+            ) }
             <button className="w-14 h-12 border rounded-md">💗</button>
           </div>
+
         </div>
+
+
       </div>
+
+      <div className="flex gap-10">
+        <h1 onClick={()=>handleDescription()} className={`${description ?"underline font-bold":"cursor-pointer"} `}>Description</h1>
+        <h1 onClick={()=>handleReviews()} className={`${reviews ?"underline font-bold":"cursor-pointer"}`} >Reviews</h1>
+        <h1 onClick={()=>handleInformation()} className={`${information ?"underline font-bold":"cursor-pointer"}`}>Additional Information</h1>
+      </div>
+      {description && (
+
+        <div className="my-4 bg-zinc-100 p-6">
+        {product.description}
+      </div>
+      )}
+      {information && (
+
+        <div className="my-4 bg-zinc-100 p-6">
+       <h1> <span className="font-bold text-lg">Available Colors:</span> {colors.map((col,index)=>( <p key={index} >{col}</p> ))} </h1> 
+       <h1 className="mt-6"> <span className="font-bold text-lg ">Available Sizes:</span> {sizes.map((size,index)=>( <p key={index} >{size}</p> ))} </h1> 
+
+      </div>
+      )}
+      {reviews && (
+
+        <div className="my-4 bg-zinc-100 p-6">
+          <h1 className="font-bold text-xl">Reviews for {product.name}</h1>
+          <p>for future: total reviews, rating, option to add review.</p>
+        {product.reviews}
+      </div>
+      )}
+
+
+      
+
     </div>
   );
 };
